@@ -3,17 +3,18 @@
     class="quiz-card z-10 relative w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"
   >
     <div class="flex flex-col items-center justify-center gap-4 min-h-[50vh]">
-      <div v-if="props.userScore > 5" class="text-lg">Congratulations!!!</div>
+      <div class="font-semibold text-sm">Congratulations!!!</div>
       <div
         class="text-3xl font-bold inline-flex flex-row items-center justify-center flex-wrap gap-2"
       >
-        You won
+        You won 
         <span
           class="text-yellow-500 inline-flex flex-row items-center justify-center gap-1"
           ><i class="ri-vip-diamond-fill -mt-[1px]"></i
           >{{ props.userScore * 10 }}</span
         >
       </div>
+      <div class="font-semibold text-sm text-gray-500">Category: {{ getTopicName(category + 9) }}</div>
     </div>
   </div>
   <NuxtLink
@@ -26,6 +27,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { quizagaStore } from "@/stores/store";
+import { getTopicName, getTopicIcon } from "@/services/utils.js";
 import confetti from "canvas-confetti";
 const store = quizagaStore();
 const props = defineProps(["userScore"]);
