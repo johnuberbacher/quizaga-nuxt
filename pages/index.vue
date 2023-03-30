@@ -1,8 +1,15 @@
 <template>
   <div
-    class="bg-purple-800 p-4 md:px-8 min-h-screen overflow-hidden flex flex-col items-center justify-start gap-4"
+    class="bg-purple-800 p-4 min-h-screen overflow-hidden flex flex-col items-center justify-start gap-4"
   >
-    <div class="w-full flex flex-row h-10 min-w-10 min-h-10"></div>
+    <div
+      class="w-full flex flex-row h-10 min-w-10 min-h-10 items-center justify-start text-white gap-3 ml-3"
+    >
+      <i
+        class="ri-flashlight-fill rounded-full h-6 w-6 bg-purple-700 text-white ring-2 ring-white flex items-center justify-center"
+      ></i>
+      <span class="font-semibold">Quizaga</span>
+    </div>
     <div
       class="columns-2 sm:columns-3 md:columns-4 grid-flow-col gap-5 w-full max-w-[800px]"
     >
@@ -12,10 +19,16 @@
         :key="index"
         :id="category"
         @click.prevent="loadQuizByCategory(category + 9)"
-        class="transform transition duration-250 hover:scale-110 my-4 px-4 font-extrabold text-sm quiz-card w-full inline-flex flex-col gap-2 items-center justify-center text-center aspect-square cursor-pointer z-10 relative bg-white rounded-3xl shadow-xl hover:shadow-2xl"
+        class="transform transition duration-250 hover:scale-110 mb-6 px-4 quiz-card w-full inline-flex flex-col gap-2 items-center justify-center text-center aspect-[4/3] cursor-pointer z-10 relative bg-white rounded-3xl shadow-xl hover:shadow-2xl"
       >
-      <div class="text-lg text-purple-500" v-html="getTopicIcon(category + 9)"></div>
-        {{ getTopicName(category + 9) }}
+        <div
+          class="text-3xl text-purple-500"
+          v-html="getTopicIcon(category + 9)"
+        ></div>
+
+        <div class="font-extrabold text-sm">
+          {{ getTopicName(category + 9) }}
+        </div>
       </NuxtLink>
       <!-- ... -->
     </div>
@@ -44,10 +57,8 @@ import { useRouter } from "vue-router";
 import { getTopicName, getTopicIcon } from "@/services/utils.js";
 
 const store = quizagaStore();
-
 const loadQuizByCategory = (category) => {
   store.category = category;
-  console.log(`catogory selected is: ${category}`);
   const router = useRouter();
 };
 </script>

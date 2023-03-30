@@ -66,15 +66,15 @@ export function getTopicName(num) {
     case 14:
       return "Television";
     case 15:
-      return "Entertainment: Video Games";
+      return "Video Games";
     case 16:
       return "Board Games";
     case 17:
       return "Science & Nature";
     case 18:
-      return "Science: Computers";
+      return "Computers";
     case 19:
-      return "Science: Mathematics";
+      return "Mathematics";
     case 20:
       return "Mythology";
     case 21:
@@ -92,13 +92,13 @@ export function getTopicName(num) {
     case 28:
       return "Vehicles";
     case 29:
-      return "Entertainment: Comics";
+      return "Comics";
     case 30:
       return "Science: Gadgets";
     case 31:
-      return "Entertainment: Japanese Anime & Manga";
+      return "Japanese Anime & Manga";
     case 32:
-      return "Entertainment: Cartoon & Animations";
+      return "Cartoon & Animations";
     default:
       return "Any";
   }

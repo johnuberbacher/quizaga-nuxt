@@ -1,31 +1,31 @@
 <template>
   <button
-    :class="{'pointer-events-none': pauseControls, }"
-    class="quiz-multiple-choice-button w-full text-sm flex flex-col items-center justify-center min-h-[50px] rounded-full px-4 border bg-white border-gray-500 active:bg-fuchsia-700 active:border-fuchsia-700 active:text-white focus:bg-white focus:border-gray-500"
+    :class="{ 'pointer-events-none': pauseControls }"
+    class="quiz-multiple-choice-button w-full text-sm flex flex-col items-center justify-center min-h-[50px] rounded-full px-4 border bg-white border-gray-500 hover:bg-fuchsia-700 hover:border-fuchsia-700 hover:text-white active:bg-fuchsia-700 active:border-fuchsia-700 active:text-white"
   >
-  {{ props.item }}
+    <span v-html="props.item"></span>
   </button>
 </template>
 <script setup>
-const props = defineProps(['item'])
+const props = defineProps(["item"]);
 </script>
 <style lang="scss">
 .quiz-multiple-choice-button {
-&.thinking {
-  color: white;
-  pointer-events: none;
-  animation: thinking-pulse 1000ms infinite alternate;
-}
-&.correct {
-  color: white;
-  pointer-events: none;
-  animation: correct-pulse 500ms infinite alternate;
-}
-&.incorrect {
-  color: white;
-  pointer-events: none;
-  animation: incorrect-pulse 500ms infinite alternate;
-}
+  &.thinking {
+    color: white;
+    pointer-events: none;
+    animation: thinking-pulse 1000ms infinite alternate;
+  }
+  &.correct {
+    color: white;
+    pointer-events: none;
+    animation: correct-pulse 500ms infinite alternate;
+  }
+  &.incorrect {
+    color: white;
+    pointer-events: none;
+    animation: incorrect-pulse 500ms infinite alternate;
+  }
 }
 @keyframes thinking-pulse {
   0% {

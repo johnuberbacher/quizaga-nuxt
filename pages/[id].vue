@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-purple-800 p-4 md:px-8 min-h-screen overflow-hidden flex flex-col items-center justify-start gap-4"
+    class="bg-purple-800 p-4 min-h-screen overflow-hidden flex flex-col items-center justify-start gap-4"
   >
     <div class="w-full flex flex-row">
       <NuxtLink
@@ -10,37 +10,36 @@
         <i class="ri-arrow-left-line text-white"></i>
       </NuxtLink>
     </div>
+    <GameOver v-if="gameover" :userScore="store.userScore"></GameOver>
     <div
+      v-if="!gameover"
       class="quiz-card z-10 relative w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"
     >
-      <div class="w-full flex flex-row items-center justify-between text-sm">
+      <div class="w-full flex flex-row items-center justify-between">
         <div
           class="flex flex-row items-center justify-start gap-2 min-w-[75px] w-[75px]"
         >
           <i class="ri-question-fill text-gray-600 -mt-[2px]"></i
-          ><span class="text-gray-600 font-semibold"
-            >{{ store.currentQuestion }}/{{ store.questionCount }}</span
+          ><span class="text-gray-600"
+            >{{ store.currentQuestion + 1 }}/{{ store.questionCount }}</span
           >
         </div>
         <div
           class="flex flex-row items-center justify-center gap-2 bg-yellow-500 rounded-full px-2 h-[24px]"
         >
-          <i class="ri-copper-diamond-fill text-white -mt-[1px]"></i
-          ><span class="text-white font-semibold">{{ store.userCredits }}</span>
+          <i class="ri-vip-diamond-fill text-white -mt-[1px]"></i
+          ><span class="text-white">{{ store.userCredits }}</span>
         </div>
         <div
           class="flex flex-row items-center justify-end gap-2 min-w-[75px] w-[75px]"
         >
           <i class="ri-star-fill text-purple-500 -mt-[2px]"></i
-          ><span class="text-gray-600 font-semibold">{{
-            store.userScore
-          }}</span>
+          ><span class="text-gray-600">{{ store.userScore }}</span>
         </div>
       </div>
       <QuizTimer :countdown="countdown"></QuizTimer>
       <div
-        :class="{ 'opacity-0': loading, 'pointer-events-none': loading }"
-        class="transition-opacity duration-1000 w-full flex flex-col items-center justify-center gap-2"
+        class="transition-opacity duration-1000 w-full flex flex-col items-center justify-center gap-4"
       >
         <div
           v-if="store.trivia[store.currentQuestion]"
@@ -48,7 +47,6 @@
         >
           {{ store.trivia[store.currentQuestion].category }}
         </div>
-
         <div
           v-if="!store.trivia[store.currentQuestion]"
           class="w-2/4 h-6 bg-gray-200 rounded-full animate-pulse"
@@ -56,7 +54,7 @@
         <div
           v-if="store.trivia[store.currentQuestion]"
           v-html="store.trivia[store.currentQuestion].question"
-          class="font-sans question text-xl md:text-2xl font-bold"
+          class="text-xl md:text-2xl font-bold"
         ></div>
         <div
           v-if="!store.trivia[store.currentQuestion]"
@@ -66,7 +64,12 @@
           <div class="w-10/12 h-8 bg-gray-200 rounded-full"></div>
         </div>
       </div>
-      <div class="w-full flex flex-col items-center justify-center gap-4">
+      <div
+        :class="{
+          'pointer-events-none': pauseControls,
+        }"
+        class="w-full flex flex-col items-center justify-center gap-4"
+      >
         <QuizMultipleChoiceButton
           :item="item"
           v-for="(item, index) in store.quizAnswers ? store.quizAnswers : 4"
@@ -109,9 +112,10 @@
 </style>
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch } from "vue";
-import confetti from "canvas-confetti";
+import { getTopicName } from "@/services/utils.js";
 import { quizagaStore } from "@/stores/store";
 import { useRouter, useRoute } from "vue-router";
+import confetti from "canvas-confetti";
 
 const store = quizagaStore();
 const route = useRoute();
@@ -121,6 +125,7 @@ const loading = ref(false);
 const pauseControls = ref(false);
 const countdown = ref(10);
 const selectedAnswer = ref(null);
+const gameover = ref(false);
 
 let timer = null;
 
@@ -148,30 +153,38 @@ const updateProgress = () => {
   circle.style.strokeDashoffset = offset;
 };
 
-const loadQuestion = () => {
-  if (store.currentQuestion > store.questionCount) {
+const loadNextQuestion = () => {
+  // Check for Game Over
+  if (store.currentQuestion === store.questionCount - 1) {
     // Finished all questions
-    alert("Game over!");
+    stopTimer();
+    pauseControls.value = true;
+    gameover.value = true;
   } else {
-    // Load next question
+    // Prepare then Load next question
     store.currentQuestion++;
-    // Fetch, merge and shuffle the answers
-    const quizShuffledAnswers = store.trivia[
-      store.currentQuestion
-    ].incorrect_answers.concat(
-      store.trivia[store.currentQuestion].correct_answer
-    );
-    quizShuffledAnswers.sort(() => Math.random() - 0.5);
-    store.quizAnswers = quizShuffledAnswers;
-
-    // Assign the correct answer to a reactive state
-    store.quizCorrectAnswer =
-      store.trivia[store.currentQuestion].correct_answer;
-
-    loading.value = false;
-    pauseControls.value = false;
-    restartTimer();
+    bundleAnswers();
   }
+};
+
+const bundleAnswers = () => {
+  // Fetch, merge and shuffle the answers
+  const quizShuffledAnswers = store.trivia[
+    store.currentQuestion
+  ].incorrect_answers.concat(
+    store.trivia[store.currentQuestion].correct_answer
+  );
+  quizShuffledAnswers.sort(() => Math.random() - 0.5);
+  store.quizAnswers = quizShuffledAnswers;
+
+  // Assign the correct answer to a reactive state
+  store.quizCorrectAnswer = store.trivia[store.currentQuestion].correct_answer;
+
+  loading.value = false;
+  pauseControls.value = false;
+
+  // Begin playing
+  restartTimer();
 };
 
 const evaluateAnswer = async (item) => {
@@ -188,7 +201,10 @@ const evaluateAnswer = async (item) => {
       selectedButton.classList.add("correct");
       confetti({
         particleCount: 150,
-        spread: 100,
+        spread: 360,
+        ticks: 60,
+        zIndex: 10,
+        startVelocity: 30,
       });
       store.userScore++;
       setTimeout(() => {
@@ -204,23 +220,26 @@ const evaluateAnswer = async (item) => {
 
     // Load Next Question
     setTimeout(() => {
-      loadQuestion();
+      // Prepare then Load next question
+      loadNextQuestion();
     }, 3000);
   }
 };
 
 onMounted(async () => {
-  await store.getTriviaByCategory(route.params.id).then(loadQuestion).catch(() => {
-    const router = useRouter();
-    navigateTo("/");
-  });
+  await store
+    .getTriviaByCategory(route.params.id)
+    .then(bundleAnswers)
+    .catch(() => {
+      const router = useRouter();
+      navigateTo("/");
+    });
 });
 
 onBeforeRouteLeave(() => {
   store.quizCorrectAnswer = "";
   store.quizAnswers = [];
   store.currentQuestion = 0;
-  store.userScore = 0;
 });
 
 onUnmounted(stopTimer);
@@ -230,9 +249,13 @@ watch(countdown, (newVal) => {
     stopTimer();
     // Ran out of time on a question!
     // TO-DO blink/pulse the correct answer
-    loadQuestion();
+    loadNextQuestion();
   }
   // Keep the timer element updated and in-sync with the countdown
   updateProgress();
+
+  console.log(
+    "currentQ:" + store.currentQuestion + "TotalQ" + store.questionCount
+  );
 });
 </script>

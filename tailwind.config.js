@@ -9,7 +9,7 @@ module.exports = {
       xl: "960px",
     },
     fontFamily: {
-        sans: ["Varela Round"],
+      sans: ["Varela Round"],
     },
     extend: {
       colors: {
