@@ -6,7 +6,7 @@
 ![Screenshot](https://i.imgur.com/nzv2yKp.jpeg)
 
 ## Project demo
-[https://johnuberbacher-quizaga.netlify.app/](https://johnuberbacher-quizaga.netlify.app/)
+[https://quizaga-nuxt.netlify.app](https://quizaga-nuxt.netlify.app)
 
 ## Project setup
 ##### Install dependencies
