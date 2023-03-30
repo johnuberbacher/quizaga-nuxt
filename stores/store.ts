@@ -13,7 +13,7 @@ export const quizagaStore = defineStore("quizaga", {
   }),
   actions: {
     async getTriviaByCategory(category:Number) {
-      const result = await fetch('https://opentdb.com/api.php?amount=' + this.questionCount + '&category=' + category + '&type=multiple');
+      const result = await fetch('https://opentdb.com/api.php?amount=' + this.questionCount + '&category=' + category);
       const data = await result.json();
       this.trivia = data['results'];
     },

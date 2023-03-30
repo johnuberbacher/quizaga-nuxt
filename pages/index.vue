@@ -1,18 +1,14 @@
 <template>
-  <div
-    class="bg-purple-800 p-4 min-h-screen overflow-hidden flex flex-col items-center justify-start gap-4"
-  >
+  <div class="w-full max-w-[500px] flex flex-col gap-4">
     <div
-      class="w-full flex flex-row h-10 min-w-10 min-h-10 items-center justify-start text-white gap-3 ml-3"
+      class="w-full flex flex-row h-12 items-center justify-center text-white gap-3"
     >
       <i
-        class="ri-flashlight-fill rounded-full h-6 w-6 bg-purple-700 text-white ring-2 ring-white flex items-center justify-center"
+        class="ri-flashlight-fill rounded-full text-xs h-5 w-5 bg-purple-700 text-white ring-[3px] ring-white flex items-center justify-center"
       ></i>
-      <span class="font-semibold">Quizaga</span>
+      <span class="font-semibold text-2xl">Quizaga</span>
     </div>
-    <div
-      class="columns-2 sm:columns-3 md:columns-4 grid-flow-col gap-5 w-full max-w-[800px]"
-    >
+    <div class="columns-2 sm:columns-3 md:columns-3 grid-flow-col gap-5 w-full">
       <NuxtLink
         :to="`${category + 9}`"
         v-for="(category, index) in 20"

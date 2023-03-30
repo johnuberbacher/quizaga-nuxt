@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="bg-purple-800 p-4 min-h-screen overflow-hidden flex flex-col items-center justify-start gap-4"
-  >
-    <div class="w-full flex flex-row">
+  <div class="w-full max-w-[500px] flex flex-col gap-4">
+    <div class="w-full flex flex-row h-12 items-center justify-start">
       <NuxtLink
         to="/"
         class="rounded-full w-10 h-10 min-w-10 min-h-10 flex items-center justify-center hover:bg-purple-600"
@@ -79,7 +77,6 @@
         ></QuizMultipleChoiceButton>
       </div>
     </div>
-    <!-- <PauseModal></PauseModal>-->
   </div>
 </template>
 <style lang="scss" scoped>
