@@ -1,0 +1,24 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxtjs/google-fonts": "^3.0.0",
+    "@nuxtjs/tailwindcss": "^6.6.4",
+    "nuxt": "^3.3.2",
+    "sass": "^1.54.9",
+    "sass-loader": "^10.3.1"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.7",
+    "canvas-confetti": "^1.6.0",
+    "pinia": "^2.0.33",
+    "remixicon": "^2.5.0"
+  }
+}
