@@ -12,12 +12,10 @@ export const quizagaStore = defineStore("quizaga", {
     userCredits: 0,
   }),
   actions: {
-    async getTriviaByCategory() {
-      const result = await fetch('https://opentdb.com/api.php?amount=' + this.questionCount + '&category=' + this.category + '&type=multiple');
+    async getTriviaByCategory(category:Number) {
+      const result = await fetch('https://opentdb.com/api.php?amount=' + this.questionCount + '&category=' + category + '&type=multiple');
       const data = await result.json();
       this.trivia = data['results'];
-      console.log('Trivia API is: ')
-      console.log(this.trivia)
     },
   },
   getters: { 
