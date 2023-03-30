@@ -18,7 +18,7 @@
   </div>
   <NuxtLink
     to="/"
-    class="w-full max-w-[250px] text-sm font-semibold flex flex-col items-center justify-center min-h-[50px] rounded-full px-4 bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 shadow-xl hover:shadow-2xl"
+    class="w-full max-w-[250px] text-sm font-semibold flex flex-col items-center justify-center self-center min-h-[50px] rounded-full px-4 bg-yellow-500 hover:bg-yellow-400 active:bg-yellow-600 shadow-xl hover:shadow-2xl"
   >
     Play Again
   </NuxtLink>
