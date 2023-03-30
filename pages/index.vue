@@ -11,7 +11,7 @@
     <div class="columns-2 sm:columns-3 md:columns-3 grid-flow-col gap-5 w-full">
       <NuxtLink
         :to="`${category + 9}`"
-        v-for="(category, index) in 20"
+        v-for="(category, index) in 23"
         :key="index"
         :id="category"
         @click.prevent="loadQuizByCategory(category + 9)"
