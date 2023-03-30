@@ -8,7 +8,11 @@
         <i class="ri-arrow-left-line text-white"></i>
       </NuxtLink>
     </div>
-    <GameOver v-if="gameover" :category="store.category" :userScore="store.userScore"></GameOver>
+    <GameOver
+      v-if="gameover"
+      :category="store.category"
+      :userScore="store.userScore"
+    ></GameOver>
     <div
       v-if="!gameover"
       class="quiz-card z-10 relative w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"
@@ -36,32 +40,9 @@
         </div>
       </div>
       <QuizTimer :countdown="countdown"></QuizTimer>
-      <div
-        class="transition-opacity duration-1000 w-full flex flex-col items-center justify-center gap-4"
-      >
-        <div
-          v-if="store.trivia[store.currentQuestion]"
-          class="text-xs text-gray-700 font-medium"
-        >
-          {{ store.trivia[store.currentQuestion].category }}
-        </div>
-        <div
-          v-if="!store.trivia[store.currentQuestion]"
-          class="w-2/4 h-6 bg-gray-200 rounded-full animate-pulse"
-        ></div>
-        <div
-          v-if="store.trivia[store.currentQuestion]"
-          v-html="store.trivia[store.currentQuestion].question"
-          class="text-xl md:text-2xl font-bold"
-        ></div>
-        <div
-          v-if="!store.trivia[store.currentQuestion]"
-          class="w-full animate-pulse flex flex-col items-center justify-center gap-2"
-        >
-          <div class="w-full h-8 bg-gray-200 rounded-full"></div>
-          <div class="w-10/12 h-8 bg-gray-200 rounded-full"></div>
-        </div>
-      </div>
+      <QuizQuestionTitle
+        :currentQuestion="store.trivia[store.currentQuestion]"
+      ></QuizQuestionTitle>
       <div
         :class="{
           'pointer-events-none': pauseControls,
@@ -250,9 +231,5 @@ watch(countdown, (newVal) => {
   }
   // Keep the timer element updated and in-sync with the countdown
   updateProgress();
-
-  console.log(
-    "currentQ:" + store.currentQuestion + "TotalQ" + store.questionCount
-  );
 });
 </script>
