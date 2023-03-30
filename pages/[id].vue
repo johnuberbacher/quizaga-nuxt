@@ -8,7 +8,7 @@
         <i class="ri-arrow-left-line text-white"></i>
       </NuxtLink>
     </div>
-    <GameOver v-if="gameover" :userScore="store.userScore"></GameOver>
+    <GameOver v-if="gameover" :category="store.category" :userScore="store.userScore"></GameOver>
     <div
       v-if="!gameover"
       class="quiz-card z-10 relative w-full max-w-[500px] bg-white rounded-3xl p-8 mb-6 text-center flex flex-col items-center justify-center gap-8 shadow-xl hover:shadow-2xl"

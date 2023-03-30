@@ -4,7 +4,7 @@
       class="w-full flex flex-row h-12 items-center justify-center text-white gap-3"
     >
       <i
-        class="ri-flashlight-fill rounded-full text-xs h-5 w-5 bg-purple-700 text-white ring-[3px] ring-white flex items-center justify-center"
+        class="ri-flashlight-fill rounded-full text-xs h-5 w-5 bg-transparent text-white ring-[3px] ring-white flex items-center justify-center"
       ></i>
       <span class="font-semibold text-2xl">Quizaga</span>
     </div>

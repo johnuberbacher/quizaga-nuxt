@@ -14,7 +14,7 @@
           >{{ props.userScore * 10 }}</span
         >
       </div>
-      <div class="font-semibold text-sm text-gray-500">Category: {{ getTopicName(category + 9) }}</div>
+      <div class="font-semibold text-sm text-gray-500">Category: {{ getTopicName(props.category) }}</div>
     </div>
   </div>
   <NuxtLink
@@ -30,7 +30,7 @@ import { quizagaStore } from "@/stores/store";
 import { getTopicName, getTopicIcon } from "@/services/utils.js";
 import confetti from "canvas-confetti";
 const store = quizagaStore();
-const props = defineProps(["userScore"]);
+const props = defineProps(["userScore", "category"]);
 
 onMounted(() => {
   store.userCredits += props.userScore * 10;
