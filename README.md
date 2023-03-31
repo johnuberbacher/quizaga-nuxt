@@ -5,9 +5,8 @@
 A mobile and web app built with Vue3, Nuxt3, and TailwindCSS that allows users to play a quiz game by fetching questions from the Open Trivia Database API.
 
 ## Features
-- Choose between different categories and difficulty levels
-- Keep track of your high scores and compete with friends
-- Share your scores on social media
+- Choose between different categories
+- Keep track of your high score
 - Responsive design for both mobile and desktop
 
 ## Screenshot
