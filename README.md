@@ -3,7 +3,7 @@
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ### Screenshot
-![Screenshot](https://i.imgur.com/nzv2yKp.jpeg)
+<img src="https://i.imgur.com/j5Uhpgi.png" width=32%>&nbsp; <img src="https://i.imgur.com/rbc3aDZ.png" width=32%>&nbsp; <img src="https://i.imgur.com/3GiM7yK.png" width=32%>
 
 ## Project demo
 [https://quizaga.netlify.app](https://quizaga.netlify.app)
